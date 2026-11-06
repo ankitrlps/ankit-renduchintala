@@ -1,0 +1,3 @@
+- Portfolio media (portrait and resume PDF) lives in `src/assets` and is imported as regular Vite assets.
+- Browser-tab animation is client-only and respects reduced motion; keep browser APIs out of SSR execution.
+- Portfolio display headings use breakpoint-based sizes so long names fit without viewport-scaled typography.

@@ -1,0 +1,108 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  --radius-lg: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-sand-deep: var(--sand-deep);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --font-display: "Syne", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-script: "Mrs Saint Delafield", cursive;
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.85 0.04 82);
+  --sand-light: oklch(0.875 0.035 82);
+  --sand-deep: oklch(0.79 0.045 78);
+  --foreground: oklch(0.27 0.06 275);
+  --primary: oklch(0.27 0.06 275);
+  --primary-foreground: oklch(0.93 0.02 82);
+  --muted: oklch(0.8 0.04 80);
+  --muted-foreground: oklch(0.38 0.05 275);
+  --accent: oklch(0.76 0.14 70);
+  --border: oklch(0.27 0.06 275 / 25%);
+  --destructive: oklch(0.5 0.19 27);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    background-color: var(--background);
+    background-image:
+      conic-gradient(from 90deg at 50% 50%, var(--sand-light) 25%, transparent 0 50%, var(--sand-light) 0 75%, transparent 0),
+      conic-gradient(var(--sand-deep) 25%, transparent 0 50%, var(--sand-deep) 0 75%, transparent 0);
+    background-size: 56px 56px, 168px 168px;
+    background-blend-mode: soft-light;
+    background-attachment: fixed;
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background: var(--background); opacity: 0.55; pointer-events: none;
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+
+@utility link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%;
+  transition: background-size .3s, color .2s;
+  &:hover { background-size: 100% 1px; }
+  &:active { color: var(--accent); }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+@utility marquee {
+  animation: marquee 40s linear infinite;
+  &:hover { animation-play-state: paused; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+@utility rise { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+@utility reveal {
+  opacity: 0; transform: translateY(24px); transition: opacity .9s, transform .9s;
+  &.in { opacity: 1; transform: none; }
+}
+
+@keyframes soccer-spin { to { transform: rotate(360deg); } }
+.soccer-spin { animation: soccer-spin 6s linear infinite; }
+.portfolio-name { letter-spacing: 0; }
+.first-name { font-size: 40px; }
+.last-name { font-size: 18px; }
+.contact-heading { font-size: 40px; }
+@media (min-width: 375px) {
+  .first-name { font-size: 50px; }
+  .last-name { font-size: 21px; }
+}
+@media (min-width: 480px) {
+  .first-name { font-size: 68px; }
+  .last-name { font-size: 28px; }
+  .contact-heading { font-size: 54px; }
+}
+@media (min-width: 640px) {
+  .first-name { font-size: 84px; }
+  .last-name { font-size: 38px; }
+  .contact-heading { font-size: 68px; }
+}
+@media (min-width: 1024px) {
+  .first-name { font-size: 118px; }
+  .last-name { font-size: 58px; }
+  .contact-heading { font-size: 108px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
